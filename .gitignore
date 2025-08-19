@@ -435,3 +435,8 @@ Karte-Info.plist
 
 # melos
 pubspec_overrides.yaml
+
+# Ignore desktop platforms
+/windows/
+/linux/
+/macos/
