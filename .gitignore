@@ -12,6 +12,9 @@
 .swiftpm/
 migrate_working_dir/
 
+
+lib/backend/node_modules
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -440,3 +443,13 @@ pubspec_overrides.yaml
 /windows/
 /linux/
 /macos/
+/ios/
+/Web/
+
+*.zip
+
+/lib/backend/node_modules
+
+.env
+
+lib/backend/node_modules/

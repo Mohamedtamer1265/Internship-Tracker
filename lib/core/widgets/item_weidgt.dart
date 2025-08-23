@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:internship_tracker/core/app_theme.dart';
 import 'package:internship_tracker/models/task.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 Widget typeBox(String type) {
   return Container(
@@ -40,6 +41,33 @@ TextStyle styleText(double fontSize, FontWeight fontWeight) {
     fontFamily: 'SFProDisplay',
     color: Colors.black,
   );
+}
+
+void showNicePopup(
+  BuildContext context,
+  String title,
+  String message,
+  IconData icon,
+) {
+  AwesomeDialog(
+    context: context,
+    dialogType: DialogType.noHeader,
+    animType: AnimType.scale,
+    body: Column(
+      children: [
+        Icon(icon, size: 60, color: Colors.red),
+        const SizedBox(height: 10),
+        Text(
+          title,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
+        Text(message, style: TextStyle(fontSize: 15)),
+      ],
+    ),
+    btnOkOnPress: () {},
+    btnOkColor: Colors.black,
+  ).show();
 }
 
 Widget taskList(Task task) {

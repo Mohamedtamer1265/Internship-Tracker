@@ -5,7 +5,8 @@ import 'package:internship_tracker/core/widgets/item_weidgt.dart';
 import 'package:internship_tracker/models/task.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final String? token;
+  const HomePage({super.key,required this.token});
 
   @override
   State<HomePage> createState() => _HomePageState();
