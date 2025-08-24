@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      floatingActionButton: footer(),
+      floatingActionButton: footer(context),
     );
   }
 }

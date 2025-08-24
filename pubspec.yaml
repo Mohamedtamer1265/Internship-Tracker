@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_secure_storage: ^9.0.0   # check for the latest version
+  flutter_secure_storage: ^9.0.0 # check for the latest version
   awesome_dialog: ^3.0.2
   http: ^1.2.1
 
@@ -59,7 +59,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-   - assets/photos/login_vector.png
+    - assets/photos/login_vector.png
   fonts:
     - family: SFProDisplay
       fonts:
