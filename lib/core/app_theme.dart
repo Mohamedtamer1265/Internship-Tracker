@@ -10,7 +10,7 @@ class AppTheme {
   static const Color grayLight = Color(0xFF8E8E93);
   static const Color grayDark = Color(0xFF8E8E93);
   static const Color ggray = Color(0xFF696969);
-  static const Color boxFeild = Color.fromARGB(255, 228, 227, 227);
+  static const Color boxFeild =  Color.fromRGBO(247, 247, 247, 1);
   static final ThemeData lightTheme = ThemeData(
     colorScheme: ColorScheme.light(
       primary: primaryColor,

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:internship_tracker/core/app_theme.dart' as app_theme;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:internship_tracker/core/widgets/item_weidgt.dart';
-import 'package:internship_tracker/features/add_task.dart';
 import 'package:internship_tracker/features/home_page.dart';
-import 'package:internship_tracker/features/login_page.dart';
 import 'package:internship_tracker/features/signup_page.dart';
 
 final storage = FlutterSecureStorage();
@@ -29,7 +26,7 @@ class MyApp extends StatelessWidget {
           } else {
             if (snapchot.hasData && snapchot.data != null) // has token
             {
-              return Text(snapchot.data.toString());
+              return HomePage(token: snapchot.data.toString());
             } else {
               return SignUp();
             }

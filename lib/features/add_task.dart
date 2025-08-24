@@ -1,35 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:internship_tracker/core/app_theme.dart';
 import 'package:internship_tracker/core/widgets/item_weidgt.dart';
 import 'package:internship_tracker/core/widgets/task_field.dart';
-import 'package:internship_tracker/core/widgets/item_weidgt.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:internship_tracker/main.dart';
-
-const List<String> taskStatus = ["pending", "accepted", "rejected"];
-const List<String> workType = ["remote", "hybrid", "onsite"];
-const List<String> taskType = [
-  "internship",
-  "remote",
-  "fullTime",
-  "partTime",
-  "freelance",
-  "volunteer",
-  "temporary",
-  "contract",
-  "apprenticeship",
-];
-const List<String> sourceList = [
-  "linkedin",
-  "googleForm",
-  "glassdoor",
-  "indeed",
-  "companyWebsite",
-  "referral",
-  "email",
-  "other",
-];
+import 'package:internship_tracker/models/task.dart';
 
 class AddTaskPage extends StatefulWidget {
   const AddTaskPage({super.key});
@@ -117,7 +92,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Add Task")),
+      appBar: AppBar(title: Text("Add Job", style: styleText(20, FontWeight.w800))),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -217,7 +192,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 2),
             ElevatedButton(
               onPressed: () async {
                 if (companyController.text.isNotEmpty &&
