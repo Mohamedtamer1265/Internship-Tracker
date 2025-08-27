@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                   return ListView.builder(
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
-                      return taskList(tasks[index],context);
+                      return TaskList(task :tasks[index]);
                     },
                   );
                 },

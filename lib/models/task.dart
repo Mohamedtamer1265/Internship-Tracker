@@ -33,8 +33,9 @@ class Task {
   final String source;
   final String type; // Types of internships
   final String? description; // Optional description field
-
-  const Task({
+  final int taskId;
+   bool favorite;
+   Task({
     required this.companyName,
     required this.appliedDate,
     required this.deadline,
@@ -45,6 +46,8 @@ class Task {
     required this.source,
     this.type = "internship", // Default type is internship
     this.description,
+    this.favorite = false,
+    required this.taskId
   });
 
   /// Helper: Check if the deadline has passed
@@ -88,6 +91,7 @@ class Task {
     source: json['source'] ?? "other",
     type: json['type'] ?? "internship",
     description: json['description'] ?? '',
+    taskId: json['taskId'],
   );
 
   @override
