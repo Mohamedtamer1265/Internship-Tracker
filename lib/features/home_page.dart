@@ -15,16 +15,19 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-Future<List<Task>> fetchTasks() async {
+Future<List<Task>> fetchTasks(bool change) async {
+  Uri cur = change
+      ? Uri.parse("http://10.0.2.2:3000/tasks")
+      : Uri.parse("http://10.0.2.2:3000/tasks/favorite");
+
   final token = await storage.read(key: 'token');
   final response = await http.get(
-    Uri.parse("http://10.0.2.2:3000/tasks"),
+    cur,
     headers: {
       "Content-Type": "application/json",
       "Authorization": token.toString(),
     },
   );
-
   if (response.statusCode == 200) {
     final List data = jsonDecode(response.body);
     return data.map((json) => Task.fromJson(json)).toList();
@@ -34,6 +37,14 @@ Future<List<Task>> fetchTasks() async {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isHomePage = true; // state should be here
+
+  void _handleTap(bool newChange) {
+    setState(() {
+      isHomePage = newChange; // update state properly
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,11 +73,15 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
-            Text("Recent internships", style: styleText(25, FontWeight.w700)),
+            const SizedBox(height: 20),
+            // depends on state
+            Text(
+              isHomePage ? "Recent internships" : "Favorites",
+              style: styleText(25, FontWeight.w700),
+            ),
             Expanded(
               child: FutureBuilder<List<Task>>(
-                future: fetchTasks(),
+                future: fetchTasks(isHomePage),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
@@ -75,16 +90,15 @@ class _HomePageState extends State<HomePage> {
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     return const Center(child: Text("No tasks found"));
                   }
-                  /*
-                  ListView is a scrollable list of widgets.
-                  .builder is a special constructor optimized for long or dynamic lists.
-                  Instead of building all items at once, it builds them lazily — only what’s visible on screen + a few offscreen items.
-                   */
                   final tasks = snapshot.data!;
                   return ListView.builder(
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
-                      return TaskList(task :tasks[index]);
+                      return TaskList(
+                        task: tasks[index],
+                        onTap: _handleTap,
+                        isHomePage: isHomePage,
+                      );
                     },
                   );
                 },
@@ -93,7 +107,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      floatingActionButton: footer(context),
+      floatingActionButton: Footer(onTap: _handleTap),
     );
   }
 }

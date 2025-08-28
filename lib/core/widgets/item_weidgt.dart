@@ -74,14 +74,20 @@ void showNicePopup(
 /// Converted into a StatefulWidget so we can use setState
 class TaskList extends StatefulWidget {
   final Task task;
-
-  const TaskList({Key? key, required this.task}) : super(key: key);
+  final Function(bool) onTap;
+  final bool isHomePage;
+  const TaskList({
+    super.key,
+    required this.task,
+    required this.onTap,
+    required this.isHomePage,
+  });
 
   @override
   State<TaskList> createState() => _TaskListState();
 }
 
-Future<void> toggleFavorite(int taskId) async {
+Future<void> toggleFavorite(int taskId, BuildContext context) async {
   final url = Uri.parse("http://10.0.2.2:3000/tasks/$taskId/favorite");
   final token = await storage.read(key: 'token');
   final response = await http.patch(
@@ -91,12 +97,8 @@ Future<void> toggleFavorite(int taskId) async {
       "Authorization": token.toString(),
     },
   );
-
-  if (response.statusCode == 200) {
-    final updatedTask = jsonDecode(response.body);
-    print("Favorite toggled: ${updatedTask['favourite']}");
-  } else {
-    print("Error: ${response.statusCode}, ${response.body}");
+  if (response.statusCode != 200) {
+    showNicePopup(context, "Error", "cannot load tasks", Icons.error);
   }
 }
 
@@ -124,11 +126,16 @@ class _TaskListState extends State<TaskList> {
                   style: styleText(20, FontWeight.w700),
                 ),
                 IconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
-                      widget.task.favorite = !widget.task.favorite;
-                      toggleFavorite(widget.task.taskId);
+                      if (widget.isHomePage) {
+                        widget.task.favorite = !widget.task.favorite;
+                      }
                     });
+                    await toggleFavorite(widget.task.taskId, context);
+                    if (!widget.isHomePage) {
+                      widget.onTap(false);
+                    }
                   },
                   icon: Icon(
                     widget.task.favorite

@@ -92,6 +92,7 @@ class Task {
     type: json['type'] ?? "internship",
     description: json['description'] ?? '',
     taskId: json['taskId'],
+    favorite: json['favorite']??false
   );
 
   @override
