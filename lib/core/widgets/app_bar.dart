@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:internship_tracker/main.dart';
 
 AppBar homePageBar() {
   return AppBar(
@@ -32,8 +33,8 @@ AppBar homePageBar() {
                         ),
                       ),
                       SizedBox(height: 5),
-                      const Text(
-                        "Mohamed",
+                      Text(
+                        nickName,
                         style: TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 20,

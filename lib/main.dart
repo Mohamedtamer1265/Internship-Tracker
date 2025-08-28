@@ -5,6 +5,7 @@ import 'package:internship_tracker/features/home_page.dart';
 import 'package:internship_tracker/features/signup_page.dart';
 
 final storage = FlutterSecureStorage();
+String nickName = "Mohamedddddd";
 void main() {
   runApp(const MyApp());
 }
@@ -24,13 +25,13 @@ class MyApp extends StatelessWidget {
           if (snapchot.connectionState == ConnectionState.waiting) {
             return Scaffold(body: Center(child: CircularProgressIndicator()));
           } else {
-            if (snapchot.hasData && snapchot.data != null) // has token
+            /*if (snapchot.hasData && snapchot.data != null) // has token
             {
               return HomePage(token: snapchot.data.toString());
             } else {
               return SignUp();
-            }
-            //  return AddTaskPage();
+            }*/
+              return SignUp();
           }
         },
       ),

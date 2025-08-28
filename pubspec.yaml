@@ -59,7 +59,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/photos/login_vector.png
+    - assets/photos/
   fonts:
     - family: SFProDisplay
       fonts:

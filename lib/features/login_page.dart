@@ -105,7 +105,10 @@ class _SignInState extends State<SignIn> {
                     };
                     final result = await sign(data);
                     if (result["success"] == true) {
+                      print(result);
                       await storage.write(key: 'token', value: result["token"]);
+                      nickName = result["nickname"]??"";
+
                       if (context.mounted) {
                         Navigator.pushReplacement(
                           context,

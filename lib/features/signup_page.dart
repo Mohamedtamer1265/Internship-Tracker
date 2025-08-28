@@ -121,6 +121,7 @@ class _SignUpState extends State<SignUp> {
                           key: 'token',
                           value: result["token"],
                         );
+                        nickName = result["nickname"];
                         if (context.mounted) {
                           Navigator.pushReplacement(
                             context,
